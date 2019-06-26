@@ -1,71 +1,89 @@
 <!doctype html>
 <html lang="en">
 
-  <head>
+<head>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <title>Word Guess Game</title>
 
-  </head>
+</head>
 
-  <div class="header container"> 
-      <div class="row">
-          <div class="col-lg-12 text-center">
-              <h1>Hangman</h1>
+<body>
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-12 text-center">
+                <h1>Hangman</h1>
             </div>
+
         </div>
     </div>
     
-    <body>
 
-        <!-- declaring global ids -->
-        <div id="word"></div>    
-     
-        <div class="container">
-            <div class="row">
+    <div class="container">
 
-                <div class="col-lg-6">
-                    <!-- insert img relevant to game theme -->
-                </div>
+        <div class="row">
 
-                <div class="col-lg-6 text-center">
+            <div class="col-lg-6">
 
+                <!-- insert img relevant to game theme -->
 
-                </div>
             </div>
+
+            <div class="col-lg-6 text-center">
+
+                <!-- declaring global ids -->
+                <div id="word">Guess a fruit</div>
+
+            </div>
+
         </div>
+    </div>
 
-        <script>
+    <script type="text/javascript">
 
-            var wordArray = ["apple", "grape", "kiwi"];     //declare & initialize array 
+        //declare & initialize array 
+        var wordArray = ["apple", "grape", "kiwi"];     
 
 
-            function pickRandomWord (){
+        //function picks a random word from wordArray
+        //finds it's length & displays underscore for for each letter in word
+        function pickRandomWord() {
 
             var word = wordArray[Math.floor(Math.random() * wordArray.length)];          //picks a random word from wordArray
 
             console.log(word);
 
-            var wordLength = word.length;
+            console.log(word.length);
 
-            console.log(wordLength);
+            //new array to hold underscore placeholders for unguessed letters from word
+            var answerArr = [];
 
-                for(var i = 0; i < wordLength; i++) {
-                
-                    console.log("_ ");
-                    //.textContent("_ ");
-                }
+            for (var i = 0; i < word.length; i++) {
 
+                //need to cancant indexes
+                console.log(answerArr[i] = "_ ");
+                //console.log(answerArr[i]);
             }
 
-            pickRandomWord(wordArray)
-         
+            console.log(answerArr[i]);
+        }
+
+
+        //call function
+        pickRandomWord(wordArray);
+
             //<p>Press any key to get started!</p>
 
             // <p>Wins</p>
@@ -81,12 +99,21 @@
             // <!-- display _ _ _ then _ x, _ v, w as guesses are made -->
 
             // <!-- loop after word guessed correctly or no more guesses remaining -->
-            //         </script>
+            //         
+            
+            </script>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  </body>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
 </html>
