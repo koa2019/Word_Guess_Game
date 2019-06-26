@@ -45,16 +45,15 @@
             <div class="col-lg-6 text-center">
                 
                 <!-- declaring global ids -->
-                <p id="startGame">Press any key to get started!</p>       <!--  instructor user how to start the game-->
-
-                <p id="guessWord"></p>   <!-- blank underscores representing letters in the word should append this id & change when user guesses each letter correctly -->
-                <p id="currentWord">Current Word</p>
-                <p id="numWins">Wins</p>
-                <p id="numGuessLeft">Remaining Guess <br></p>
-                <p id="wrongGuess">Letters Already Guessed</p>
+                <p >Press Any Key to Get <br>Started!</p> <!--  instructor user how to start the game-->
+                <p>Current Word</p> 
+                <p id="word"> </p> 
+                <p id="letter"></p>
+                <p id="winTotal">Wins</p>
+                <p id="guessLeft">Remaining Guess <br></p>
+                <p id="wrongLetter">Letters Already Guessed</p>
 
             </div>
-
         </div>
     </div>
 
@@ -62,22 +61,32 @@
 
         //$(document).ready()
 
-        //declare & initialize array 
-        var wordArray = ["apple", "grape", "kiwi"];
-
-        //new array to hold underscore placeholders for unguessed letters from word
-        var answerArr = " ";
+        //declare & initialize variables 
+        var startWord = "_ _ _ _ _"
+        var wordArray = ["APPLE", "GRAPE", "KIWI"];
         var wins = 0;
         var remainingGuess = 10;
+        
 
-        //Create variables to hold references to the places in the HTML where we want to display things.
-        //HTML will append to these parent Ids
-        var start = document.getElementById("startGame");
-        var word = document.getElementById("guessWord");
+        //variables to hold references to the places in the HTML where we want to display things.
+        //HTML will append to these parent selctors
+        
+        var currentWord = document.getElementById("word");
 
+        var userGuess = document.getElementById("letter");
 
+        var numWins = document.getElementById("winTotal");
+
+        var numGuess = document.getElementById("guessLeft");
+
+        var badLetter = document.getElementById("wrongLetter");
+
+    
+        currentWord.textContent("#word");
+        currentWord.append(startWord);
+        
         // This function is run whenever the user presses a key.
-        document.onkeyup = function (event) {
+        document.onkeyup = function startGame(event) {
 
             // Determines which key was pressed.
             var userGuess = event.key;
@@ -85,40 +94,54 @@
             // Randomly picks a random word from wordArray
             var guessThisWord = wordArray[Math.floor(Math.random() * wordArray.length)];
 
-            console.log(guessThisWord);     //check which word was selected
+            console.log(guessThisWord)     
 
             //???????????????????
-            //loop to find length of word & display blank underscore for each letter in word
+            //loop to find length of word & display underscores for each letter in word
             for (var i = 0; i < guessThisWord.length; i++) {
 
-                document.textContent(i);   //?????????need to cancant indexes?????????
-                var letter = document.append("_ ");
+                console.log(guessThisWord.length)
+                
+                //?????? how to loop for each letter in word .charAt[j]?
+                for(var j=0; j < guessThisWord.length; j++) {
 
-                //change users input to lowerCase
-                userGuess = userGuess.toLowerCase();
-
-                // Only run the following code block if the user guesses a letter in guessThisWord
-                if (userGuess === guessThisWord.charAt[i]) {
-
-                    //????????????????
-                    //change blank underscore to correct letter guessed by user
-                    letter.append(userGuess);
+                    //???do i need new var array for each letter in word                  
+                    console.log(guessThisWord.charAt[j])       
+                    
 
                 }
             }
+        }
 
-            //increases total correct words guessed by user
-            var currentWord = answerArr;
+        //change users input toUpperCase
+        function letterUpperCase(userGuess) {
+                        
+            var x = document.getElementById("letterGuessed");
+            x.value = x.value.toUpperCase();
 
-            if(currentWord != guessThisWord) {
-                remainingGuess--;
-             } console.log(remainingGuess);                
-            else {
+        }
+
+        //loop to check if user won & guessed word correctly without running out of guesses
+        function checkWinner() {
+
+            if (currentWord === guessThisWord) {
+
                 wins++;
-            }   console.log(wins);
 
+            } console.log(wins);
+
+            // elseif () {
+
+
+            // }
+            // else (
+
+            //     remainingGuess--;
+            // )
+
+             console.log(remainingGuess); 
             
-        };
+        }
 
 
     </script>
