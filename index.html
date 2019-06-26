@@ -25,11 +25,12 @@
 
             <div class="col-lg-12 text-center">
                 <h1>Hangman</h1>
+                <h2>Fruit Edition</h2>
             </div>
 
         </div>
     </div>
-    
+
 
     <div class="container">
 
@@ -42,9 +43,15 @@
             </div>
 
             <div class="col-lg-6 text-center">
-
+                
                 <!-- declaring global ids -->
-                <div id="word">Guess a fruit</div>
+                <p id="startGame">Press any key to get started!</p>       <!--  instructor user how to start the game-->
+
+                <p id="guessWord"></p>   <!-- blank underscores representing letters in the word should append this id & change when user guesses each letter correctly -->
+                <p id="currentWord">Current Word</p>
+                <p id="numWins">Wins</p>
+                <p id="numGuessLeft">Remaining Guess <br></p>
+                <p id="wrongGuess">Letters Already Guessed</p>
 
             </div>
 
@@ -53,55 +60,68 @@
 
     <script type="text/javascript">
 
+        //$(document).ready()
+
         //declare & initialize array 
-        var wordArray = ["apple", "grape", "kiwi"];     
+        var wordArray = ["apple", "grape", "kiwi"];
+
+        //new array to hold underscore placeholders for unguessed letters from word
+        var answerArr = " ";
+        var wins = 0;
+        var remainingGuess = 10;
+
+        //Create variables to hold references to the places in the HTML where we want to display things.
+        //HTML will append to these parent Ids
+        var start = document.getElementById("startGame");
+        var word = document.getElementById("guessWord");
 
 
-        //function picks a random word from wordArray
-        //finds it's length & displays underscore for for each letter in word
-        function pickRandomWord() {
+        // This function is run whenever the user presses a key.
+        document.onkeyup = function (event) {
 
-            var word = wordArray[Math.floor(Math.random() * wordArray.length)];          //picks a random word from wordArray
+            // Determines which key was pressed.
+            var userGuess = event.key;
 
-            console.log(word);
+            // Randomly picks a random word from wordArray
+            var guessThisWord = wordArray[Math.floor(Math.random() * wordArray.length)];
 
-            console.log(word.length);
+            console.log(guessThisWord);     //check which word was selected
 
-            //new array to hold underscore placeholders for unguessed letters from word
-            var answerArr = [];
+            //???????????????????
+            //loop to find length of word & display blank underscore for each letter in word
+            for (var i = 0; i < guessThisWord.length; i++) {
 
-            for (var i = 0; i < word.length; i++) {
+                document.textContent(i);   //?????????need to cancant indexes?????????
+                var letter = document.append("_ ");
 
-                //need to cancant indexes
-                console.log(answerArr[i] = "_ ");
-                //console.log(answerArr[i]);
+                //change users input to lowerCase
+                userGuess = userGuess.toLowerCase();
+
+                // Only run the following code block if the user guesses a letter in guessThisWord
+                if (userGuess === guessThisWord.charAt[i]) {
+
+                    //????????????????
+                    //change blank underscore to correct letter guessed by user
+                    letter.append(userGuess);
+
+                }
             }
 
-            console.log(answerArr[i]);
-        }
+            //increases total correct words guessed by user
+            var currentWord = answerArr;
 
+            if(currentWord != guessThisWord) {
+                remainingGuess--;
+             } console.log(remainingGuess);                
+            else {
+                wins++;
+            }   console.log(wins);
 
-        //call function
-        pickRandomWord(wordArray);
-
-            //<p>Press any key to get started!</p>
-
-            // <p>Wins</p>
-            // <!-- display # of wins -->
-
-            // <p> Current Word</p>
-            // <!-- display _ _ and then _ _ a _ -->
-
-            // <p>Number of Guesses Remaining</p>
-            // <!-- display reverse countdown of remaining guesses -->
-
-            // <p>Letters Already Guessed</p>
-            // <!-- display _ _ _ then _ x, _ v, w as guesses are made -->
-
-            // <!-- loop after word guessed correctly or no more guesses remaining -->
-            //         
             
-            </script>
+        };
+
+
+    </script>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
