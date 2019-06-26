@@ -46,14 +46,25 @@
             var wordArray = ["apple", "grape", "kiwi"];     //declare & initialize array 
 
 
+            function pickRandomWord (){
 
             var word = wordArray[Math.floor(Math.random() * wordArray.length)];          //picks a random word from wordArray
-            console.log(word);
-            console.log(word.length);
 
-                for(var i = 0; i < word.length; i++) {
-                    .textContent("_ ");
+            console.log(word);
+
+            var wordLength = word.length;
+
+            console.log(wordLength);
+
+                for(var i = 0; i < wordLength; i++) {
+                
+                    console.log("_ ");
+                    //.textContent("_ ");
                 }
+
+            }
+
+            pickRandomWord(wordArray)
          
             //<p>Press any key to get started!</p>
 
