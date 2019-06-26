@@ -23,36 +23,54 @@
     </div>
     
     <body>
+
+        <!-- declaring global ids -->
+        <div id="word"></div>    
+     
         <div class="container">
             <div class="row">
 
                 <div class="col-lg-6">
-
+                    <!-- insert img relevant to game theme -->
                 </div>
 
-                <div class="col-lg- text-center">
+                <div class="col-lg-6 text-center">
 
-                    <p>Press any key to get started!</p>
 
-                    <p>Wins</p>
-                    <!-- display # of wins -->
-
-                    <p> Current Word</p>
-                    <!-- display _ _ and then _ _ a _ -->
-
-                    <p>Number of Guesses Remaining</p>
-                    <!-- display reverse countdown of remaining guesses -->
-
-                    <p>Letters Already Guessed</p>
-                    <!-- display _ _ _ then _ x, _ v, w as guesses are made -->
-
-                    <!-- loop after word guessed correctly or no more guesses remaining -->
-                    
                 </div>
             </div>
         </div>
 
+        <script>
 
+            var wordArray = ["apple", "grape", "kiwi"];     //declare & initialize array 
+
+
+
+            var word = wordArray[Math.floor(Math.random() * wordArray.length)];          //picks a random word from wordArray
+            console.log(word);
+            console.log(word.length);
+
+                for(var i = 0; i < word.length; i++) {
+                    .textContent("_ ");
+                }
+         
+            //<p>Press any key to get started!</p>
+
+            // <p>Wins</p>
+            // <!-- display # of wins -->
+
+            // <p> Current Word</p>
+            // <!-- display _ _ and then _ _ a _ -->
+
+            // <p>Number of Guesses Remaining</p>
+            // <!-- display reverse countdown of remaining guesses -->
+
+            // <p>Letters Already Guessed</p>
+            // <!-- display _ _ _ then _ x, _ v, w as guesses are made -->
+
+            // <!-- loop after word guessed correctly or no more guesses remaining -->
+            //         </script>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
