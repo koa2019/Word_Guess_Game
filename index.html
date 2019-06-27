@@ -10,7 +10,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -38,7 +38,7 @@
 
             <div class="col-lg-12 text-center">
                 <h1>Hangman</h1>
-                <h2>Fruit Edition</h2>
+                <h4>Fruit Edition</h4>
             </div>
 
         </div>
@@ -63,7 +63,7 @@
                 <p id="word"> </p>
                 <p id="letter"></p>
                 <p id="winTotal">Wins</p>
-                <p id="guessLeft">Remaining Guess <br></p>
+                <p id="guessLeft">Remaining Guess </p>
                 <p id="wrongLetter">Letters Already Guessed</p>
 
             </div>
@@ -94,31 +94,21 @@
 
             var badLetter = document.getElementById("wrongLetter");
 
+            currentWord.textContent = startWord;
 
+            numGuess.textContent = remainingGuess;
+            
+            //functions
             //pick random word from array
-            function pickRandomWord(guessThisWord) {
+            function pickRandomWord() {
 
                 // Randomly picks a random word from wordArray
-                var guessThisWord = wordArray[Math.floor(Math.random() * wordArray.length)];
-                
-                console.log("computer picked: " + guessThisWord);
+                var randomWord = wordArray[Math.floor(Math.random() * wordArray.length)];
+
+                console.log("computer picked: " + randomWord);
+                return randomWord;
             }
-
-            pickRandomWord(guessThisWord);    //calling function
-
-            //get characters in word
-            function getLetters(guessThisWord){           // //???????????????????
-                
-                for (var i = 0; i < guessThisWord.length; i++) {
-                        
-                    console.log(guessThisWord.charAt(i));
-
-                    // if ((userGuess === guessThisWord.charAt(i))) {
-
-                    // }
-                }
-             }
-             getLetters(guessThisWord);
+            var guessThisWord = pickRandomWord();
 
             // function runs whenever user presses a key
             document.onkeyup = function startGame(event) {
@@ -127,68 +117,61 @@
                 var userGuess = event.key;
                 console.log("user pressed to start " + userGuess);
             }
+            //?????? how to loop for each letter in word .charAt[j]?
+            //get characters in word
+            function getLetters(guessThisWord) { 
 
-            //     if(userGuess === guessThisWord) {
-            //         wins++;
-            //         console.log("# wins: " + wins);
+                var word = " ";
 
-            //     } 
-            //     else if (userGuess === ) {
+                //loop for length of string
+                for (var i = 0; i < guessThisWord.length; i++) {
 
-            //     }
-            //     else {
-            //         remainingGuess--;
-            //         console.log(remainingGuess); 
-            //     }
-            // }            
-                
-            
-                //     console.log(guessThisWord.length)
+                    console.log(guessThisWord[i]);
+                }
+                       
+                // for (var j = 0; j < guessThisWord.length; j++) {
 
-                //     //?????? how to loop for each letter in word .charAt[j]?
-                //     for (var j = 0; j < guessThisWord.length; j++) {
+                //     //???do i need new var array for each letter in word                  
+                //     console.log(guessThisWord.charAt[j])
 
-                //         //???do i need new var array for each letter in word                  
-                //         console.log(guessThisWord.charAt[j])
-
-                //     }
                 // }
-            
-            // //loop to check if user won & guessed word correctly without running out of guesses
-            // function checkWinner() {
+                // }
+            }
 
-            //     if (currentWord === guessThisWord) {
+            //loop to check if user won & guessed word correctly without running out of guesses
+            function checkWinner() {
 
-            //         wins++;
+                if (userGuess === guessThisWord) {
+                    wins++;
+                    console.log("# wins: " + wins);
+                }
+            }
 
-            //     } console.log(wins);
+            function numGuessLeft(remainingGuess) {
+                var r = 10;
+                r--;
+                console.log(r);
+            }
+            // //change users input toUpperCase
+            // function letterUpperCase(userGuess) {
 
-            //     // elseif () {
-
-
-            //     // }
-            //     // else (
-
-            //     //     remainingGuess--;
-            //     // )
-
-            //     console.log(remainingGuess);
-
+            //  var x = document.getElementById("letterGuessed");
+            //  x.value = x.value.toUpperCase();
+            // console.log("should change userGuess uppercase " + x);
             // }
-            
-            //                 //change users input toUpperCase
-            //                 function letterUpperCase(userGuess) {
+            // letterUpperCase(userGuess);
 
-            // var x = document.getElementById("letterGuessed");
-            // x.value = x.value.toUpperCase();
-
-            // }
-            // console.log("should change userGuess uppercase " + userGuess);
-
-             currentWord.textContent = startWord;
-
-          }) //closes .ready
+            //call functions
+           
+            pickRandomWord(guessThisWord);    //calling function
+            getLetters(guessThisWord);
+            numGuessLeft(remainingGuess);
         
+
+
+
+        }) //closes .ready
+
 
 
     </script>
