@@ -10,8 +10,21 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <!-- scipt -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="assets/javascript/game.js"></script>
 
     <title>Word Guess Game</title>
 
@@ -43,11 +56,11 @@
             </div>
 
             <div class="col-lg-6 text-center">
-                
+
                 <!-- declaring global ids -->
-                <p >Press Any Key to Get <br>Started!</p> <!--  instructor user how to start the game-->
-                <p>Current Word</p> 
-                <p id="word"> </p> 
+                <p>Press Any Key to Get <br>Started!</p> <!--  instructor user how to start the game-->
+                <p>Current Word</p>
+                <p id="word"> </p>
                 <p id="letter"></p>
                 <p id="winTotal">Wins</p>
                 <p id="guessLeft">Remaining Guess <br></p>
@@ -59,103 +72,127 @@
 
     <script type="text/javascript">
 
-        //$(document).ready()
+        $(document).ready(function () {
 
-        //declare & initialize variables 
-        var startWord = "_ _ _ _ _"
-        var wordArray = ["APPLE", "GRAPE", "KIWI"];
-        var wins = 0;
-        var remainingGuess = 10;
-        
+            //declare & initialize variables 
+            var startWord = "_ _ _ _ _"
+            var wordArray = ["APPLE", "GRAPE", "KIWI"];
+            var wins = 0;
+            var remainingGuess = 10;
+            var guessThisWord = " ";
 
-        //variables to hold references to the places in the HTML where we want to display things.
-        //HTML will append to these parent selctors
-        
-        var currentWord = document.getElementById("word");
+            //variables to hold references to the places in the HTML where we want to display things.
+            //HTML will append to these parent selctors
 
-        var userGuess = document.getElementById("letter");
+            var currentWord = document.getElementById("word");
 
-        var numWins = document.getElementById("winTotal");
+            var userGuess = document.getElementById("letter");
 
-        var numGuess = document.getElementById("guessLeft");
+            var numWins = document.getElementById("winTotal");
 
-        var badLetter = document.getElementById("wrongLetter");
+            var numGuess = document.getElementById("guessLeft");
+
+            var badLetter = document.getElementById("wrongLetter");
 
 
-        // function runs whenever user presses a key
-        document.onkeyup = function startGame(event) {
+            //pick random word from array
+            function pickRandomWord(guessThisWord) {
 
-            // Determines which key was pressed.
-            var userGuess = event.key;
-
-            // Randomly picks a random word from wordArray
-            var guessThisWord = wordArray[Math.floor(Math.random() * wordArray.length)];
-
-            console.log(guessThisWord)     
-
-            //???????????????????
-            //loop to find length of word & display underscores for each letter in word
-            for (var i = 0; i < guessThisWord.length; i++) {
-
-                console.log(guessThisWord.length)
+                // Randomly picks a random word from wordArray
+                var guessThisWord = wordArray[Math.floor(Math.random() * wordArray.length)];
                 
-                //?????? how to loop for each letter in word .charAt[j]?
-                for(var j=0; j < guessThisWord.length; j++) {
-
-                    //???do i need new var array for each letter in word                  
-                    console.log(guessThisWord.charAt[j])       
-                    
-
-                }
+                console.log("computer picked: " + guessThisWord);
             }
-        }
 
-        //change users input toUpperCase
-        function letterUpperCase(userGuess) {
+            pickRandomWord(guessThisWord);    //calling function
+
+            //get characters in word
+            function getLetters(guessThisWord){           // //???????????????????
+                
+                for (var i = 0; i < guessThisWord.length; i++) {
                         
-            var x = document.getElementById("letterGuessed");
-            x.value = x.value.toUpperCase();
+                    console.log(guessThisWord.charAt(i));
 
-        }
+                    // if ((userGuess === guessThisWord.charAt(i))) {
 
-        //loop to check if user won & guessed word correctly without running out of guesses
-        function checkWinner() {
+                    // }
+                }
+             }
+             getLetters(guessThisWord);
 
-            if (currentWord === guessThisWord) {
+            // function runs whenever user presses a key
+            document.onkeyup = function startGame(event) {
 
-                wins++;
+                // Determines which key was pressed.
+                var userGuess = event.key;
+                console.log("user pressed to start " + userGuess);
+            }
 
-            } console.log(wins);
+            //     if(userGuess === guessThisWord) {
+            //         wins++;
+            //         console.log("# wins: " + wins);
 
-            // elseif () {
+            //     } 
+            //     else if (userGuess === ) {
 
+            //     }
+            //     else {
+            //         remainingGuess--;
+            //         console.log(remainingGuess); 
+            //     }
+            // }            
+                
+            
+                //     console.log(guessThisWord.length)
+
+                //     //?????? how to loop for each letter in word .charAt[j]?
+                //     for (var j = 0; j < guessThisWord.length; j++) {
+
+                //         //???do i need new var array for each letter in word                  
+                //         console.log(guessThisWord.charAt[j])
+
+                //     }
+                // }
+            
+            // //loop to check if user won & guessed word correctly without running out of guesses
+            // function checkWinner() {
+
+            //     if (currentWord === guessThisWord) {
+
+            //         wins++;
+
+            //     } console.log(wins);
+
+            //     // elseif () {
+
+
+            //     // }
+            //     // else (
+
+            //     //     remainingGuess--;
+            //     // )
+
+            //     console.log(remainingGuess);
 
             // }
-            // else (
-
-            //     remainingGuess--;
-            // )
-
-             console.log(remainingGuess); 
             
-        }
+            //                 //change users input toUpperCase
+            //                 function letterUpperCase(userGuess) {
 
-        currentWord.textContent = startWord;
+            // var x = document.getElementById("letterGuessed");
+            // x.value = x.value.toUpperCase();
+
+            // }
+            // console.log("should change userGuess uppercase " + userGuess);
+
+             currentWord.textContent = startWord;
+
+          }) //closes .ready
         
+
 
     </script>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
 </body>
 
 </html>
