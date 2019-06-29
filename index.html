@@ -59,12 +59,15 @@
 
                 <!-- declaring global ids -->
                 <p>Press Any Key to Get <br>Started!</p> <!--  instructor user how to start the game-->
+                <p id="characterGuess"></p>
                 <p>Current Word</p>
                 <p id="word"> </p>
-                <p id="letter"></p>
-                <p id="winTotal">Wins</p>
-                <p id="guessLeft">Remaining Guess </p>
-                <p id="wrongLetter">Letters Already Guessed</p>
+                <p>Wins</p>
+                <p id="winTotal"></p>
+                <p>Remaining Guesses</p>
+                <p id="guessLeft"></p>
+                <p>Letters Already Guessed</p>
+                <p id="wrongLetter"></p>
 
             </div>
         </div>
@@ -75,100 +78,110 @@
         $(document).ready(function () {
 
             //declare & initialize variables 
-            var startWord = "_ _ _ _ _"
-            var wordArray = ["APPLE", "GRAPE", "KIWI"];
-            var wins = 0;
+
             var remainingGuess = 10;
+            var wins = 0;
+            var currentWord = "";
+            var wordArray = ["APPLE", "GRAPE", "KIWI"];
             var guessThisWord = " ";
+            var userGuess = " ";
+            var wordString = " ";
+            var string1 = "";
+            var wrongLetterString = "";
 
             //variables to hold references to the places in the HTML where we want to display things.
             //HTML will append to these parent selctors
 
-            var currentWord = document.getElementById("word");
+            var currentWordText = document.getElementById("word");
 
-            var userGuess = document.getElementById("letter");
+            var userGuessText = document.getElementById("characterGuess");
 
-            var numWins = document.getElementById("winTotal");
+            var numWinsText = document.getElementById("winTotal");
 
-            var numGuess = document.getElementById("guessLeft");
+            var remainingGuessText = document.getElementById("guessLeft");
 
-            var badLetter = document.getElementById("wrongLetter");
+            var wrongLetterText = document.getElementById("wrongLetter");
 
-            currentWord.textContent = startWord;
 
-            numGuess.textContent = remainingGuess;
-            
-            //functions
+            //numGuessText.textContent = remainingGuess;
+            guessThisWord = pickRandomWord();
+
             //pick random word from array
             function pickRandomWord() {
 
-                // Randomly picks a random word from wordArray
-                var randomWord = wordArray[Math.floor(Math.random() * wordArray.length)];
+                // var wordString = " ";
+
+                var randomWord = wordArray[Math.floor(Math.random() * wordArray.length)];    // Randomly picks a random word from wordArray
 
                 console.log("computer picked: " + randomWord);
+
+                //loop for each character in string
+                for (var i = 0; i < randomWord.length; i++) {
+
+                    var letter = randomWord[i];
+                    console.log("randowmWord[i] = " + letter);
+
+
+                    wordString = wordString + " " + letter;
+                    console.log("cancate word " + wordString);
+
+                }
+                //currentWordText.textContent =  wordString;
+
                 return randomWord;
             }
-            var guessThisWord = pickRandomWord();
+
 
             // function runs whenever user presses a key
             document.onkeyup = function startGame(event) {
 
-                // Determines which key was pressed.
-                var userGuess = event.key;
-                console.log("user pressed to start " + userGuess);
-            }
-            //?????? how to loop for each letter in word .charAt[j]?
-            //get characters in word
-            function getLetters(guessThisWord) { 
+                console.log("guessWord in keyup function: " + guessThisWord);
 
-                var word = " ";
+                var userInput = event.key;    // Determines which key was pressed.
 
-                //loop for length of string
-                for (var i = 0; i < guessThisWord.length; i++) {
+                console.log("userInput: " + userInput);
 
-                    console.log(guessThisWord[i]);
+                // userInput = upperCase(userInput);
+                // console.log("UserInput After: " + userInput);
+
+                
+                if(guessThisWord.indexOf(userInput) === -1) {
+                    remainingGuess--;
+                    remainingGuessText.textContent = remainingGuess;
+                    wrongLetterString = userInput + ", " + wrongLetterString;
+                    wrongLetterText.textContent = wrongLetterString; 
                 }
-                       
-                // for (var j = 0; j < guessThisWord.length; j++) {
-
-                //     //???do i need new var array for each letter in word                  
-                //     console.log(guessThisWord.charAt[j])
-
-                // }
-                // }
-            }
-
-            //loop to check if user won & guessed word correctly without running out of guesses
-            function checkWinner() {
-
-                if (userGuess === guessThisWord) {
+                else {
+                    string1 = string1 + userInput;
+                    currentWordText.textContent = string1;
+                }
+                if(guessThisWord === string1) {
                     wins++;
-                    console.log("# wins: " + wins);
+                    numWinsText.textContent = wins;
                 }
-            }
-
-            function numGuessLeft(remainingGuess) {
-                var r = 10;
-                r--;
-                console.log(r);
-            }
-            // //change users input toUpperCase
-            // function letterUpperCase(userGuess) {
-
-            //  var x = document.getElementById("letterGuessed");
-            //  x.value = x.value.toUpperCase();
-            // console.log("should change userGuess uppercase " + x);
-            // }
-            // letterUpperCase(userGuess);
-
-            //call functions
-           
-            pickRandomWord(guessThisWord);    //calling function
-            getLetters(guessThisWord);
-            numGuessLeft(remainingGuess);
+                
         
+            }
 
 
+
+
+
+
+
+
+
+
+            //function changes userInput to upperCase
+            function upperCase(x) {
+
+                var x = x.toUpperCase();
+
+
+                return x;
+                console.log("toUpperCase " + x);
+
+            }
 
         }) //closes .ready
 
