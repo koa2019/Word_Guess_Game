@@ -12,13 +12,16 @@ $(document).ready(function () {
     var correctGuessArr = [];
     var wrongLetterString = "";
     var displayWord;
+    var letter ="";
 
     //variables to hold references to the places in the HTML where we want to display things.
     //HTML will append to these parent selctors
 
-    var userGuessText = document.getElementById("characterGuess");
+    var startGameText = document.getElementById("startGame");
 
-    var currentWordText = document.getElementById("word");
+    // var userGuessText = document.getElementById("characterGuess").onkeyup;
+
+    var guessWordText = document.getElementById("word");
 
     var numWinsText = document.getElementById("winTotal");
 
@@ -26,70 +29,18 @@ $(document).ready(function () {
 
     var wrongLetterText = document.getElementById("wrongLetter");
 
-
     guessThisWord = pickRandomWord();
-
-    //pick random word from array
-    function pickRandomWord() {
-
-        var randomWord = wordArray[Math.floor(Math.random() * wordArray.length)];    // Randomly picks a random word from wordArray
-
-        console.log("computer picked: " + randomWord);
-
-        //loop for each character in string
-        for (var i = 0; i < randomWord.length; i++) {
-
-            var letter = randomWord[i];
-
-        }
-        return randomWord;
-    }
-
-    function storeCorrectLetters() {
-
-        // if (guessThisWord.indexOf(userInput) !== -1) { //if userInput is in guessThisWord, 
-
-        correctGuessArr += userInput;    //then add userInput to correctGuessArray
-
-        console.log("inside guessThisWord.indexOf(userInput) " + correctGuessArr);
-        // currentWordText.textContent = correctGuess;
-        //}
-
-    }
-
-    function displayCorrectLetters() {
-
-        storeCorrectLetters();
-
-        //loop for each character in guessThisWord
-        for (var i = 0; i < guessThisWord.length; i++) {
-
-            var letter = guessThisWord[i];  //assign that character to letter
-            // console.log("randowmWord[i] = " + letter);
-
-            if (correctGuessArr.includes(letter)) {   //if array contains letter, then
-                displayWordArr += letter;   //add letter to displayWordArr
-                console.log("inside if .include " + displayWordArr)
-            }
-            else {
-                displayWordArr += " _ ";
-                console.log("inside else .include " + displayWordArr)
-            }
-        }
-
-        return displayWordArr;
-    }
-
 
     // function runs whenever user presses a key
     document.onkeyup = function startGame(event) {
-
+        
         userInput = event.key;    // Determines which key was pressed.
         userInput = upperCase();
 
         console.log("guessWord in keyup function: " + guessThisWord);
-        console.log("userInput: " + userInput);
-        console.log("UserInput After: " + userInput);
+        console.log("UserInput.toUpperCase: " + userInput);
+
+        storeCorrectLetters();
 
         if (remainingGuess !== 0 && remainingGuess <= 10) {
 
@@ -101,26 +52,59 @@ $(document).ready(function () {
         if (guessThisWord.includes(userInput)) {  //checks userInput is in guessThisWord
 
             displayWord = displayCorrectLetters();
-
-            currentWordText.textContent = displayWord;
+            guessWordText.textContent = displayWord;
 
             if (displayWord === guessThisWord) {   //if displayWord equals guessThisWord
 
                 winner();
-                winnerReset();
+                // winnerReset();
             }
         }
-        restartGame(); //call function to reset ids #word #guessLeft #wrongLetter 
+        // restartGame(); //call function to reset ids #word #guessLeft #wrongLetter 
     }
 
+    //pick random word from array
+    function pickRandomWord() {
 
+        guessThisWord = wordArray[Math.floor(Math.random() * wordArray.length)];    // Randomly picks a random word from wordArray
+
+        console.log("computer picked: " + guessThisWord);
+
+        return guessThisWord;
+    }
+
+    function storeCorrectLetters() {
+
+        correctGuessArr += userInput;    //then add userInput to correctGuessArray
+
+        console.log("inside guessThisWord.indexOf(userInput) " + correctGuessArr);     
+    }
+
+    function displayCorrectLetters() {
+
+        //loop for each character in guessThisWord
+        for (var i = 0; i < guessThisWord.length; i++) {
+
+            letter = guessThisWord[i];  //assign that character to letter
+            // console.log("randowmWord[i] = " + letter);
+
+            if (correctGuessArr.includes(letter)) {   //if array contains letter, then
+                displayWordArr += letter;   //add letter to displayWordArr
+                console.log("inside if .include " + displayWordArr)
+            }
+            else {
+                displayWordArr += " _ ";
+                console.log("inside else .include " + displayWordArr)
+            }
+        }
+        return displayWordArr;
+    }
 
     //function increases number wins, resets currentWord & calls function for new random word
     function winner() {
 
         wins++;    //increase wins
         numWinsText.textContent = wins;  //update wins on html
-
     }
 
     function winnerReset() {
@@ -129,6 +113,7 @@ $(document).ready(function () {
         wrongLetterString = "";
         guessThisWord = pickRandomWord();
     }
+
     //function changes number of remaining guess & add's wrong letter guessed to cancated string
     function wrongGuess() {
 
@@ -147,10 +132,10 @@ $(document).ready(function () {
 
     //restarts game
     function restartGame() {
-        //remainingGuess = 10;
-        // displayWord = "";
-        // correctGuessArr = [];
-        //wrongLetterString = "";
+        remainingGuess = 10;
+        displayWord = "";
+        correctGuessArr = [];
+        wrongLetterString = "";
     }
 
 }) //closes .ready
