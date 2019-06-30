@@ -1,3 +1,12 @@
+
+Known bugs:
+1. function displayCorrectLetters() is causing the displayLetterArr to doesn't replace/update itself after each correct letter guess iteration. 
+1a. displaying incorrectly at html on <p id="word">
+
+3. function restartGame variables reset variable at the wrong time.
+
+------------------------------------------------
+Insturctions
 # Word_Guess_Game
 ## Option Two: Word Guess Game (Challenge - Recommended)
 
