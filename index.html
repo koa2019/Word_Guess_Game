@@ -84,17 +84,18 @@
             var currentWord = "";
             var wordArray = ["APPLE", "GRAPE", "KIWI"];
             var guessThisWord = " ";
-            var userGuess = " ";
-            var wordString = " ";
-            var string1 = "";
+            var userInput = "";
+            var displayWordArr = [];
+            var correctGuessArr = [];
             var wrongLetterString = "";
+            var display;
 
             //variables to hold references to the places in the HTML where we want to display things.
             //HTML will append to these parent selctors
 
-            var currentWordText = document.getElementById("word");
-
             var userGuessText = document.getElementById("characterGuess");
+
+            var currentWordText = document.getElementById("word");
 
             var numWinsText = document.getElementById("winTotal");
 
@@ -109,8 +110,6 @@
             //pick random word from array
             function pickRandomWord() {
 
-                // var wordString = " ";
-
                 var randomWord = wordArray[Math.floor(Math.random() * wordArray.length)];    // Randomly picks a random word from wordArray
 
                 console.log("computer picked: " + randomWord);
@@ -119,16 +118,36 @@
                 for (var i = 0; i < randomWord.length; i++) {
 
                     var letter = randomWord[i];
-                    console.log("randowmWord[i] = " + letter);
-
-
-                    wordString = wordString + " " + letter;
-                    console.log("cancate word " + wordString);
-
+                    
                 }
-                //currentWordText.textContent =  wordString;
-
                 return randomWord;
+            }
+
+            function displayCorrectGuesses() {
+
+                if (guessThisWord.indexOf(userInput) !== -1) { //if userInput is in guessThisWord, 
+                    
+                    correctGuessArr += userInput;         //then add userInput to correctGuessArray
+
+                    console.log(correctGuessArr);
+                    // currentWordText.textContent = correctGuess;
+                }
+
+                //loop for each character in guessThisWord
+                for (var i = 0; i < guessThisWord.length; i++) {
+
+                    var letter = guessThisWord[i];      //assign that character to letter
+                    // console.log("randowmWord[i] = " + letter);
+
+                    if (correctGuessArr.includes(letter)) {   //if array contains letter, then
+                        displayWordArr += letter;   //add letter to displayWordArr
+                        console.log("inside .include " + displayWordArr)
+                    }
+                    else {
+                        displayWordArr += " _ ";
+                    }
+                }
+                return displayWordArr;
             }
 
 
@@ -137,39 +156,38 @@
 
                 console.log("guessWord in keyup function: " + guessThisWord);
 
-                var userInput = event.key;    // Determines which key was pressed.
+                userInput = event.key;    // Determines which key was pressed.
 
                 console.log("userInput: " + userInput);
 
                 // userInput = upperCase(userInput);
                 // console.log("UserInput After: " + userInput);
 
-                
-                if(guessThisWord.indexOf(userInput) === -1) {
-                    remainingGuess--;
-                    remainingGuessText.textContent = remainingGuess;
-                    wrongLetterString = userInput + ", " + wrongLetterString;
-                    wrongLetterText.textContent = wrongLetterString; 
+                if (remainingGuess !== 0 && remainingGuess <= 10) {
+
+                    if (guessThisWord.indexOf(userInput) === -1) {
+                        remainingGuess--;
+                        remainingGuessText.textContent = remainingGuess;
+                        wrongLetterString = userInput + ", " + wrongLetterString;
+                        wrongLetterText.textContent = wrongLetterString;
+                    }
+                    else {
+                        display = displayCorrectGuesses();
+                        currentWordText.textContent = display;
+
+                        // string1 = string1 + userInput;
+                        // correctGuess += userInput;  //if userInput is in guessThisWord, then add it to correctGuess array
+                    }
                 }
-                else {
-                    string1 = string1 + userInput;
-                    currentWordText.textContent = string1;
-                }
-                if(guessThisWord === string1) {
-                    wins++;
-                    numWinsText.textContent = wins;
-                }
-                
-        
+                // if (guessThisWord === string1) {
+                //     wins++;
+                //     numWinsText.textContent = wins;
+                //     pickRandomWord();
+                // }
+                //}
+
+
             }
-
-
-
-
-
-
-
-
 
 
             //function changes userInput to upperCase
