@@ -12,14 +12,12 @@ $(document).ready(function () {
     var correctGuessArr = [];
     var wrongLetterString = "";
     var displayWord;
-    var letter ="";
+    var letter = "";
 
     //variables to hold references to the places in the HTML where we want to display things.
     //HTML will append to these parent selctors
 
     var startGameText = document.getElementById("startGame");
-
-    // var userGuessText = document.getElementById("characterGuess").onkeyup;
 
     var guessWordText = document.getElementById("word");
 
@@ -30,10 +28,20 @@ $(document).ready(function () {
     var wrongLetterText = document.getElementById("wrongLetter");
 
     guessThisWord = pickRandomWord();
+    var dashTemp = [];
+    var dashTempString;
 
+    function displayUnderscores() {
+        //loop for each character in guessThisWord
+        for (var i = 0; i < guessThisWord.length; i++) {
+            dashTemp.push('-');
+            dashTempString = dashTemp.join('')
+            guessWordText.textContent = dashTempString;
+        }
+    }
     // function runs whenever user presses a key
     document.onkeyup = function startGame(event) {
-        
+
         userInput = event.key;    // Determines which key was pressed.
         userInput = upperCase();
 
@@ -48,20 +56,31 @@ $(document).ready(function () {
 
                 wrongGuess();
             }
-        }
-        if (guessThisWord.includes(userInput)) {  //checks userInput is in guessThisWord
+            else if (guessThisWord.includes(userInput)) {  //checks userInput is in guessThisWord
 
-            displayWord = displayCorrectLetters();
-            guessWordText.textContent = displayWord;
+                for (var i = 0; i < guessThisWord.length; i++) {  //finding the index num of the correct userInput
+                    var found = guessThisWord.indexOf(userInput);
+                    var found2 = guessThisWord.lastIndexOf(userInput);
+                }
+                dashTemp.splice(found, 1, userInput); //replace correct userInput into _ _ _ array
+                dashTemp.splice(found2, 1, userInput); //replace correct userInput into _ _ _ array
+                guessWordText.textContent = dashTemp.join('');
 
-            if (displayWord === guessThisWord) {   //if displayWord equals guessThisWord
+            }
+
+            if (guessThisWord.toString() === dashTemp.toString()) {   //if displayWord equals guessThisWord
 
                 winner();
                 // winnerReset();
             }
         }
-        // restartGame(); //call function to reset ids #word #guessLeft #wrongLetter 
+        else {
+            pickRandomWord();
+            restartGame();  //call function to reset ids #word #guessLeft #wrongLetter 
+        }
+
     }
+
 
     //pick random word from array
     function pickRandomWord() {
@@ -70,6 +89,9 @@ $(document).ready(function () {
 
         console.log("computer picked: " + guessThisWord);
 
+        guessThisWord = Array.from(guessThisWord);  //changed string to array
+        console.log(guessThisWord);
+
         return guessThisWord;
     }
 
@@ -77,28 +99,10 @@ $(document).ready(function () {
 
         correctGuessArr += userInput;    //then add userInput to correctGuessArray
 
-        console.log("inside guessThisWord.indexOf(userInput) " + correctGuessArr);     
+        console.log("inside guessThisWord.indexOf(userInput) " + correctGuessArr);
     }
 
-    function displayCorrectLetters() {
 
-        //loop for each character in guessThisWord
-        for (var i = 0; i < guessThisWord.length; i++) {
-
-            letter = guessThisWord[i];  //assign that character to letter
-            // console.log("randowmWord[i] = " + letter);
-
-            if (correctGuessArr.includes(letter)) {   //if array contains letter, then
-                displayWordArr += letter;   //add letter to displayWordArr
-                console.log("inside if .include " + displayWordArr)
-            }
-            else {
-                displayWordArr += " _ ";
-                console.log("inside else .include " + displayWordArr)
-            }
-        }
-        return displayWordArr;
-    }
 
     //function increases number wins, resets currentWord & calls function for new random word
     function winner() {
@@ -133,9 +137,13 @@ $(document).ready(function () {
     //restarts game
     function restartGame() {
         remainingGuess = 10;
+        remainingGuessText.textContent = remainingGuess;
         displayWord = "";
+        guessWordText.textContent = displayWord;
         correctGuessArr = [];
         wrongLetterString = "";
+        wrongLetterText.textContent = wrongLetterString;
+        displayUnderscores();
     }
 
 }) //closes .ready
